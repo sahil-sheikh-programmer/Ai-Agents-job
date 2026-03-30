@@ -1,15 +1,24 @@
 
 import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 import nodemailer from "nodemailer";
 import Groq from "groq-sdk"
+import cors from "cors";
 
 dotenv.config();
-
 const app = express();
-app.use(cors());
+const port = process.env.PORT || 4000;
+app.use(cors({
+  origin: "*"
+  
+}));
+app.use(express.static("public"));
+
+
+
+
 app.use(express.json());
+
 
 /* ================================
    🔥 CONFIG
@@ -128,7 +137,10 @@ app.post("/send-email", async (req, res) => {
 /* ================================
    🚀 START SERVER
 ================================ */
+app.get("/", (req, res) => {
+  res.send("Backend working 🚀");
+});
 
-app.listen(5000, () => {
-  console.log("🚀 AI Email Agent running on port 5000");
+app.listen(port, () => {
+  console.log(`🚀 AI Email Agent running on port ${port}`);
 });

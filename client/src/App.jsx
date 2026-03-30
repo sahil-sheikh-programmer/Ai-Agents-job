@@ -13,7 +13,7 @@ function App() {
   const handleGenerate = async () => {
     setLoading(true);
 
-    const res = await fetch("http://localhost:5000/generate", {
+    const res = await fetch("https://ai-agents-job.onrender.com/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ function App() {
       return;
     }
 
-    await fetch("http://localhost:5000/send-email", {
+    await fetch("https://ai-agents-job.onrender.com/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
