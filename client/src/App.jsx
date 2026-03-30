@@ -13,7 +13,7 @@ function App() {
   const handleGenerate = async () => {
     setLoading(true);
 
-    const res = await fetch("https://ai-agents-job.onrender.com/generate", {
+    const res = await fetch("http://localhost:5000/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,15 +27,15 @@ function App() {
   };
 
   /* =========================
-     📩 SEND EMAIL
+     📩 SEND EMAILś
   ========================= */
-  const sendEmail = async () => {
+  const sendEmail = async () => {ś
     if (!generated) {
       alert("Generate email first!");
       return;
     }
 
-    await fetch("https://ai-agents-job.onrender.com/send-email", {
+    await fetch("http://localhost:5000/send-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
