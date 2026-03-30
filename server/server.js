@@ -113,27 +113,23 @@ app.post("/send-email", async (req, res) => {
   try {
     const { to, subject, body } = req.body;
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to,
       subject,
       text: body,
-      attachments: [
-        {
-          filename: "resume.pdf",
-          path: "./public/resume.pdf",
-        },
-      ],
+      // attachments: []  // keep empty for now
     });
+
+    console.log("EMAIL INFO:", info);
 
     res.json({ message: "Email sent successfully ✅" });
 
   } catch (err) {
-    console.error("Email error:", err.message);
-    res.status(500).json({ error: "Email failed" });
+    console.error("FULL ERROR:", err);
+    res.status(500).json({ error: err.message });
   }
 });
-
 /* ================================
    🚀 START SERVER
 ================================ */
