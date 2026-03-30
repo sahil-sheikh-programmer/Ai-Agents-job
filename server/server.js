@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 app.use(cors({
   origin: "*"
-  
+
 }));
 app.use(express.static("public"));
 
@@ -81,10 +81,10 @@ Body: ...
       model: "llama-3.3-70b-versatile",
     });
 
-    console.log("AI Response:", aiRes);  
+    console.log("AI Response:", aiRes);
 
     const fullText = aiRes.choices[0].message.content;
-console.log("Full AI Text:", fullText);
+    console.log("Full AI Text:", fullText);
     const subject = fullText.match(/Subject:(.*)/)?.[1]?.trim() || "Job Application";
     const body = fullText.split("Body:")[1]?.trim() || fullText;
 
@@ -113,23 +113,27 @@ app.post("/send-email", async (req, res) => {
   try {
     const { to, subject, body } = req.body;
 
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to,
       subject,
       text: body,
-      // attachments: []  // keep empty for now
+      attachments: [
+        {
+          filename: "resume.pdf",
+          path: "./resume.pdf",
+        },
+      ],
     });
-
-    console.log("EMAIL INFO:", info);
 
     res.json({ message: "Email sent successfully ✅" });
 
   } catch (err) {
-    console.error("FULL ERROR:", err);
-    res.status(500).json({ error: err.message });
+    console.error("Email error:", err.message);
+    res.status(500).json({ error: "Email failed" });
   }
 });
+
 /* ================================
    🚀 START SERVER
 ================================ */
