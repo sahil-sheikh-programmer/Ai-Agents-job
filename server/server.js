@@ -137,7 +137,7 @@ app.post("/send-email", async (req, res) => {
 /* ================================
    🚀 START SERVER
 ================================ */
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Backend working 🚀");
 });
 
